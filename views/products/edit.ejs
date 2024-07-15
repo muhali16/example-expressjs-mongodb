@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= product.name %> - Edit Product</title>
+  </head>
+  <body>
+    <h3>Edit Product</h3>
+    <h1><%= product.name %></h1>
+    <form
+      action="/products/<%= product._id %>?_method=PUT"
+      method="POST"
+      style="display: flex; flex-direction: column; gap: 10px; width: 30%"
+    >
+      <label for="name">Name</label>
+      <input type="text" name="name" value="<%= product.name %>" required />
+      <label for="price">Price</label>
+      <input type="number" name="price" value="<%= product.price %>" required />
+      <label for="color">Color</label>
+      <input type="text" name="color" value="<%= product.color %>" required />
+      <label for="size">Size</label>
+      <select name="size" id="size" required>
+        <option value="S" <%= product.size === 'S' ? 'selected' : '' %>>S</option>
+        <option value="M" <%= product.size === 'M' ? 'selected' : '' %>>M</option>
+        <option value="L" <%= product.size === 'L' ? 'selected' : '' %>>L</option>
+        <option value="XL" <%= product.size === 'XL' ? 'selected' : '' %>>XL</option>
+      </select>
+      <button type="submit">Update</button>
+    </form>
+    <button
+      type="button"
+      onclick="window.history.back()"
+      style="margin: 10px 0"
+    >
+      Cancel
+    </button>
+  </body>
+</html>

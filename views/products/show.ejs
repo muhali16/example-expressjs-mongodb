@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= product.name %> - Product Detail</title>
+  </head>
+  <body>
+    <h1><%= product.name %></h1>
+    <p>Rp <%= product.price %></p>
+    <p>Size: <%= product.size %></p>
+    <p>Color: <%= product.color %></p>
+    <div style="display: flex; gap: 10px">
+      <button type="button" onclick="window.history.back()">Back</button>
+      <button
+        type="button"
+        onclick="window.location.href = '/products/<%= product._id %>/edit'"
+      >
+        Edit
+      </button>
+      <form
+        action="/products/<%= product._id %>?_method=DELETE"
+        method="POST"
+        onsubmit="return confirm('Are you sure you want to delete this item?');"
+      >
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  </body>
+</html>

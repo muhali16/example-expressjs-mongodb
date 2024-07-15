@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Product</title>
+  </head>
+  <body>
+    <h1>Create Product</h1>
+    <form
+      action="/products"
+      method="POST"
+      style="display: flex; flex-direction: column; gap: 10px; width: 30%"
+    >
+      <label for="name">Name</label>
+      <input type="text" name="name" placeholder="Product Name" required />
+      <label for="price">Price</label>
+      <input type="number" name="price" placeholder="Product Price" required />
+      <label for="color">Color</label>
+      <input type="text" name="color" placeholder="Product Color" required />
+      <label for="size">Size</label>
+      <select name="size" id="size" required>
+        <option>Select Size</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+      <button type="submit">Create</button>
+    </form>
+    <button
+      type="button"
+      onclick="window.history.back()"
+      style="margin: 10px 0"
+    >
+      Cancel
+    </button>
+  </body>
+</html>

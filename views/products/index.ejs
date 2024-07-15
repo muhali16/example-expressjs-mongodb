@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+  </head>
+  <body>
+    <h1>All Products</h1>
+    <span style="display: flex; gap: 10px">
+      <button type="button" onclick="window.location.href = '/products/create'">
+        Create Product
+      </button>
+      <form action="" onchange="this.submit()">
+        <label for="productSize">Filter Berdasarkan Ukuran</label>
+        <select name="size" id="productSize">
+          <option value="all" <%= size === 'all' ? 'selected' : '' %>>all size</option>
+          <option value="S" <%= size === 'S' ? 'selected' : '' %>>S</option>
+          <option value="M" <%= size === 'M' ? 'selected' : '' %>>M</option>
+          <option value="L" <%= size === 'L' ? 'selected' : '' %>>L</option>
+          <option value="XL" <%= size === 'XL' ? 'selected' : '' %>>XL</option>
+        </select>
+      </form>
+    </span>
+    <ol>
+      <% products.forEach(element => { %>
+      <li>
+        <a href="/products/<%= element._id %>"><%= element.name %></a>
+        <ul>
+          <li>Price: Rp <%= element.price %></li>
+          <li>Size: <%= element.size %></li>
+          <li>Color: <%= element.color %></li>
+        </ul>
+      </li>
+      <% }) %>
+    </ol>
+  </body>
+</html>
