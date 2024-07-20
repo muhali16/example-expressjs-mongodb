@@ -2,6 +2,8 @@ const express = require("express");
 const methodOverride = require("method-override");
 const path = require("path");
 const mongoose = require("mongoose");
+const session = require("express-session");
+const flash = require("connect-flash");
 const app = express();
 
 // models
@@ -18,10 +20,27 @@ mongoose
     console.log(err);
   });
 
+// secret key
+const secretKey = "kjhe908309i1prdl-=+";
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(
+  session({
+    secret: secretKey,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+app.use(flash());
+
+// general flash message middleware
+app.use((req, res, next) => {
+  res.locals.flashMessage = req.flash("flashMessage");
+  next();
+});
 
 function wrapAsync(fn) {
   return function (req, res, next) {
@@ -55,7 +74,10 @@ app.get(
   "/garments",
   wrapAsync(async (req, res) => {
     const garments = await Garment.find();
-    res.render("garments/index", { garments });
+    res.render("garments/index", {
+      garments,
+      message: req.flash("success_add_garment"),
+    });
   })
 );
 
@@ -68,6 +90,8 @@ app.post(
   wrapAsync(async (req, res) => {
     const garment = new Garment(req.body);
     await garment.save();
+    req.flash("success_add_garment", "Success create a new garment"); // custom flash message
+    req.flash("flashMessage", "Success create a new garment"); // general flash message
     res.redirect("/garments");
   })
 );
@@ -87,6 +111,7 @@ app.delete(
   "/garments/:garmentId",
   wrapAsync(async (req, res) => {
     await Garment.findByIdAndDelete(req.params.garmentId);
+    req.flash("flashMessage", "Success delete a garment"); // general message via middleware
     res.redirect("/garments");
   })
 );

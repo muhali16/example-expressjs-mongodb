@@ -7,6 +7,8 @@
   </head>
   <body>
     <h1>All Garments</h1>
+    <p style="color: green">Custom Flash Message: <%= message %></p>
+    <p style="color: green">General Flash Message: <%= flashMessage %></p>
     <a href="/garments/create">Create Garment</a>
     <ol>
       <% garments.forEach(garment => { %>
