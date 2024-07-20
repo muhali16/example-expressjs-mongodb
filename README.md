@@ -8,4 +8,9 @@
 
 ## Feature
 
-This project is a basic CRUD application using Express JS and MongoDB. It allows users to create, read, update, and delete products. Additionally, the project includes a feature to filter products based on their size.
+1. CRUD Product
+2. CRUD Garment
+3. Filter Product by Size
+4. Delete Garment and its Products
+5. Error Handling
+6. Not Found Page
