@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= garment.name %> - Garment</title>
+  </head>
+  <body>
+    <h1><%= garment.name %></h1>
+    <button>
+      <a href="/garments/<%= garment._id %>/products/create">New Product</a>
+    </button>
+    <p>Lokasi: <%= garment.location %></p>
+    <p>Kontak: <%= garment.contact %></p>
+    <br />
+    <h3>Garment Products</h3>
+    <ol>
+      <% garment.products.forEach(element => { %>
+      <li>
+        <a href="/products/<%= element._id %>"><%= element.name %></a>
+        <ul>
+          <li>Price: Rp <%= element.price %></li>
+          <li>Size: <%= element.size %></li>
+          <li>Color: <%= element.color %></li>
+        </ul>
+      </li>
+      <% }) %>
+    </ol>
+    <br />
+    <br />
+    <form
+      action="/garments/<%= garment._id %>?_method=DELETE"
+      method="POST"
+      onsubmit="return confirm('Are you sure you want to delete this item?');"
+    >
+      <button type="submit">Delete</button>
+    </form>
+  </body>
+</html>

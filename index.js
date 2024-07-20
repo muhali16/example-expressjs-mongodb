@@ -6,6 +6,7 @@ const app = express();
 
 // models
 const Product = require("./models/product");
+const Garment = require("./models/garment");
 
 // create mongodb connection
 mongoose
@@ -50,16 +51,61 @@ app.get(
   })
 );
 
+app.get(
+  "/garments",
+  wrapAsync(async (req, res) => {
+    const garments = await Garment.find();
+    res.render("garments/index", { garments });
+  })
+);
+
+app.get("/garments/create", (req, res) => {
+  res.render("garments/create");
+});
+
+app.post(
+  "/garments",
+  wrapAsync(async (req, res) => {
+    const garment = new Garment(req.body);
+    await garment.save();
+    res.redirect("/garments");
+  })
+);
+
+app.get(
+  "/garments/:garmentId",
+  wrapAsync(async (req, res) => {
+    const garment = await Garment.findById(req.params.garmentId).populate(
+      "products"
+    );
+    res.render("garments/show", { garment });
+  })
+);
+
+// delete garment
+app.delete(
+  "/garments/:garmentId",
+  wrapAsync(async (req, res) => {
+    await Garment.findByIdAndDelete(req.params.garmentId);
+    res.redirect("/garments");
+  })
+);
+
 // create product page
-app.get("/products/create", (req, res) => {
-  res.render("products/create");
+app.get("/garments/:garment_id/products/create", async (req, res) => {
+  const { garment_id } = req.params;
+  res.render("products/create", { garment_id });
 });
 
 // create product
 app.post(
-  "/products",
+  "/garments/:garment_id/products",
   wrapAsync(async (req, res) => {
     const product = new Product(req.body);
+    const garment = await Garment.findById(req.params.garment_id);
+    garment.products.push(product);
+    product.garment = garment;
+    await garment.save();
     await product.save();
     res.redirect(`/products/${product._id}`);
   })
@@ -69,7 +115,8 @@ app.post(
 app.get(
   "/products/:id",
   wrapAsync(async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate("garment");
+    console.log(product);
     res.render("products/show", { product });
   })
 );

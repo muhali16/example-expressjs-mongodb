@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Garments</title>
+  </head>
+  <body>
+    <h1>All Garments</h1>
+    <a href="/garments/create">Create Garment</a>
+    <ol>
+      <% garments.forEach(garment => { %>
+      <li><a href="/garments/<%= garment._id %>"><%= garment.name %></a></li>
+      <% }) %>
+    </ol>
+  </body>
+</html>

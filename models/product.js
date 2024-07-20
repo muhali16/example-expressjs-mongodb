@@ -18,6 +18,10 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: [true, "Masukan warna produk anda."],
   },
+  garment: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Garment",
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);

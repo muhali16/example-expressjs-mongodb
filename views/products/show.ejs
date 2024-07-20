@@ -10,6 +10,18 @@
     <p>Rp <%= product.price %></p>
     <p>Size: <%= product.size %></p>
     <p>Color: <%= product.color %></p>
+    <br />
+    <h3>Garment Info</h3>
+    <p>
+      Name:
+      <a href="/garments/<%= product.garment._id %>"
+        ><%= product.garment.name %></a
+      >
+    </p>
+    <p>Location: <%= product.garment.location %></p>
+    <p>Contact: <%= product.garment.contact %></p>
+    <br />
+    <br />
     <div style="display: flex; gap: 10px">
       <button type="button" onclick="window.history.back()">Back</button>
       <button
