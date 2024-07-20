@@ -14,3 +14,4 @@
 4. Delete Garment and its Products
 5. Error Handling
 6. Not Found Page
+7. Flash session for success create and delete garment action
